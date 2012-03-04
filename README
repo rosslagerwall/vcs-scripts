@@ -1,0 +1,42 @@
+git-null
+========
+
+What is it?
+-----------
+
+git-null clears a Git working directory (or in Mercurial parlance, updates it
+to the null revision).
+
+This may be useful if you keep up-to-date with many (possibly large) Git
+repositories and don't want to have thousands of files on disk while you're
+not actively working on the project.
+
+Usage
+-----
+
+Simply put git-null somewhere on your PATH and run it in the root of a Git
+repository.
+
+$ cd ~/src/git-repo
+$ git-null
+
+Contributing
+------------
+
+Fork it on GitHub, hack away and then send a pull request.
+
+Licensing
+---------
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+Please see the file called COPYING for more details.
+
+Latest Version
+--------------
+
+Details of the latest version can be found on the gizz project page at
+https://github.com/rosslagerwall/git-null.
