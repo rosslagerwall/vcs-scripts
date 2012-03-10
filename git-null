@@ -2,20 +2,20 @@
 
 if [ ! -d `pwd`/.git ]; then
     echo "Not in a git dir!"
-    return
+    exit 1
 fi
 
 OUTPUT=$(git status -s)
 if [ -n "$OUTPUT" ]; then
     echo "Modified files exist in the Git working tree."
-    return
+    exit 1
 fi
 
 OUTPUT=$(git clean -n -x -d)
 if [ -n "$OUTPUT" ]; then
     echo "Git repository not clean."
     echo "Remove all unversioned files and directories."
-    return
+    exit 1
 fi
 
 echo "Updating `pwd` to the *null* revision in 10 seconds."
