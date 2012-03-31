@@ -20,6 +20,11 @@ repository.
 $ cd ~/src/git-repo
 $ git-null
 
+If git is run with an unknown command, it searches for that command in your PATH
+so, running:
+$ git null
+will run git-null if it is in your PATH.
+
 Contributing
 ------------
 
