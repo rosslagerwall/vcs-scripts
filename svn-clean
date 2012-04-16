@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ ! -d ".svn" ]; then
+    echo "Not in svn working copy"
+    exit 1
+fi
+
+res=$(svn status --no-ignore | grep '^[?I]' | cut -c '9-')
+if [ -n "$res" ]; then
+    echo "List of files to clean:"
+    svn status --no-ignore | grep '^[?I]' | cut -c '9-'
+    echo "Cleaning in 10 seconds"
+    sleep 10
+    svn status --no-ignore | grep '^[?I]' | cut -c '9-' | \
+    xargs -d '\n' rm -rf
+fi
