@@ -1,16 +1,31 @@
 #!/bin/sh
 
-if [ ! -d ".svn" ]; then
-    echo "Not in svn working copy"
+cleanup() {
+    rm "$svn_out"
+    rm "$svn_err"
+}
+
+svn_out=$(mktemp)
+svn_err=$(mktemp)
+
+svn status --no-ignore 2> "$svn_err" | grep '^[?I]' | cut -c '9-' > "$svn_out"
+
+if [ -s "$svn_err" ]; then
+    echo "svn error:"
+    cat "$svn_err"
+    cleanup
     exit 1
 fi
 
-res=$(svn status --no-ignore | grep '^[?I]' | cut -c '9-')
-if [ -n "$res" ]; then
-    echo "List of files to clean:"
-    svn status --no-ignore | grep '^[?I]' | cut -c '9-'
-    echo "Cleaning in 10 seconds"
-    sleep 10
-    svn status --no-ignore | grep '^[?I]' | cut -c '9-' | \
-    xargs -d '\n' rm -rf
+if [ -s "$svn_out" ]; then
+    if [ -z "$1" ]; then
+        echo "Would remove (use -f to force):"
+        cat "$svn_out"
+    else
+        echo "Removing:"
+        cat "$svn_out"
+        xargs -d '\n' rm -rf < "$svn_out"
+    fi
 fi
+
+cleanup
