@@ -1,0 +1,32 @@
+#!/bin/sh
+
+cleanup() {
+    rm "$svn_out"
+    rm "$svn_err"
+}
+
+svn_out=$(mktemp)
+svn_err=$(mktemp)
+
+svn status --no-ignore > "$svn_out" 2> "$svn_err"
+
+if [ -s "$svn_err" ]; then
+    echo "svn error:"
+    cat "$svn_err"
+    cleanup
+    exit 1
+fi
+
+if [ -s "$svn_out" ]; then
+    echo "Checkout is not clean!"
+    cleanup
+    exit 1
+fi
+
+if [ "$1" = "-f" ]; then
+    echo "Updating `pwd` to the *null* revision."
+    find . ! -path './.svn*' -delete
+    echo "To go back to the previous state, run: svn revert -R ."
+else
+    echo "usage: $0 -f"
+fi
