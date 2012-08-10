@@ -4,18 +4,24 @@ vcs-scripts
 What is it?
 -----------
 
-git-null clears a Git working directory (or in Mercurial parlance, updates it
-to the null revision).
+A set of VCS (version control system) scripts to supplement the functionality
+of the existing systems.
 
-This may be useful if you keep up-to-date with many (possibly large) Git
-repositories and don't want to have thousands of files on disk while you're
-not actively working on the project.
+
+svn-null and git-null clear the working directory (or in Mercurial parlance,
+updates it to the null revision).
+
+This may be useful if you keep up-to-date with many (possibly large)
+repositories and don't want to have thousands of files on disk while you're not
+actively working on the project.
+
+
+svn-clean removes unversioned and ignored files from the working copy.
 
 Usage
 -----
 
-Simply put git-null somewhere on your PATH and run it in the root of a Git
-repository.
+Simply put the scripts somewhere on your PATH. Then run as follows:
 
 $ cd ~/src/git-repo
 $ git-null
@@ -24,6 +30,14 @@ If git is run with an unknown command, it searches for that command in your PATH
 so, running:
 $ git null
 will run git-null if it is in your PATH.
+
+$ cd ~/src/svn-repo
+
+Clean the repo of all unversioned and ignored files:
+$ svn-clean -f
+
+Clear the repo of all files:
+$ svn-null
 
 Contributing
 ------------
