@@ -23,6 +23,8 @@ if [ -s "$svn_out" ]; then
     exit 1
 fi
 
+cleanup
+
 echo "Updating `pwd` to the *null* revision."
 find . ! -path './.svn*' -delete
 echo "To go back to the previous state, run: svn revert -R ."
