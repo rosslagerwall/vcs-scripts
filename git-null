@@ -19,5 +19,6 @@ if [ -n "$OUTPUT" ]; then
 fi
 
 echo "Updating `pwd` to the *null* revision."
-find . ! -path './.git*' -delete
+git ls-files -z | xargs -0 rm       # delete all tracked files
+ls | grep -v '.git' | xargs rm -r   # delete empty directories
 echo "To go back to the previous state, run: git reset --hard"
