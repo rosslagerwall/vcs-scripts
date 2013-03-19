@@ -19,7 +19,7 @@ if [ -n "$OUTPUT" ]; then
 fi
 
 echo "Updating `pwd` to the *null* revision."
-git ls-files -z | xargs -0 rm       # delete all tracked files
+git ls-files -z | xargs -0 rm --       # delete all tracked files
 # Delete all empty directories except for ./.git
 find . -type d -not \( -path './.git/*' -or -path './.git' \) -delete
 echo "To go back to the previous state, run: git reset --hard"
